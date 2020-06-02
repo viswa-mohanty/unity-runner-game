@@ -120,10 +120,10 @@ public class PlayerController : MonoBehaviour
     {
         if (hit.transform.tag == "Obstacles")
         {
-            PlayerManager.gameOver = true;
             FindObjectOfType<AudioManager>().PlaySound("GameOver");
-
-
+            StartCoroutine(Fall());
+            //PlayerManager.gameOver = true;
+            
         }
     }
 
@@ -134,6 +134,15 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
 
         animator.SetBool("IsSliding", false);
+
+
+    }
+
+    private IEnumerator Fall()
+    {
+        animator.SetBool("IsFall", true);
+        yield return new WaitForSeconds(0.2f);
+        PlayerManager.gameOver = true;
 
 
     }
